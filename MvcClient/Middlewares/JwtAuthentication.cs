@@ -12,6 +12,9 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace MvcClient.Middlewares
 {
+    /// <summary>
+    /// Her istekte Access Token'ın expire olacağı tarihi kontrol eder. Eğer Expire olduysa API'ye refresh token ile istek yollar.Kullanıcıyı MVC tarafında çıkış yaptırır ve yeni bilgiler ile tekrar giriş yaptırır. 
+    /// </summary>
     public class JwtAuthentication : IMiddleware
     {
         private readonly HttpClient _apiSampleClient;

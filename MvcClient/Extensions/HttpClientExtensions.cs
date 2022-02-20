@@ -22,12 +22,12 @@ namespace MvcClient.Extensions
     public static class HttpClientExtensions
     {
         /// <summary>
-        /// Access Token olmadan public bir endpointe istek
+        /// Access Token olmadan public bir endpointe get isteği atan versiyon.
         /// </summary>
-        /// <typeparam name="TResponse"></typeparam>
+        /// <typeparam name="TResponse">Dönüş yapılacak tip.</typeparam>
         /// <param name="client"></param>
-        /// <param name="endpoint"></param>
-        /// <returns></returns>
+        /// <param name="endpoint">örn /products/getAll</param>
+        /// <returns>TResponse</returns>
        public async static Task<ApiResponse<TResponse>> GetAsync<TResponse>(this HttpClient client, string endpoint)
         {
 
@@ -84,13 +84,13 @@ namespace MvcClient.Extensions
 
 
         /// <summary>
-        /// Access Token olmadan Post isteği atar
+        /// Access Token olmadan Post isteği atan versiyon.
         /// </summary>
-        /// <typeparam name="TParam"></typeparam>
-        /// <typeparam name="TResponse"></typeparam>
+        /// <typeparam name="TParam">Gönderilecek tip</typeparam>
+        /// <typeparam name="TResponse">Geri dönecek tip</typeparam>
         /// <param name="client"></param>
-        /// <param name="endPoint"></param>
-        /// <param name="param"></param>
+        /// <param name="endPoint">adres örn api/v1/products</param>
+        /// <param name="param">Gönderilecek request'in payload'ı</param>
         /// <returns></returns>
         public async static Task<ApiResponse<TResponse>> PostAsync<TParam, TResponse>(this HttpClient client, string endPoint, TParam @param)
         {
@@ -144,7 +144,7 @@ namespace MvcClient.Extensions
 
 
         /// <summary>
-        /// Bearer Token implemente edilmiş hali
+        /// Protected Resource'lara erişmek için Bearer token implemente edilmiş versiyon.
         /// </summary>
         /// <typeparam name="TParam"></typeparam>
         /// <typeparam name="TResponse"></typeparam>
@@ -155,8 +155,7 @@ namespace MvcClient.Extensions
         /// <returns></returns>
         public async static Task<ApiResponse<TResponse>> PostAsync<TParam, TResponse>(this HttpClient client, string endPoint, TParam @param, HttpContext httpContext)
         {
-            // await yerine GetAwaiter ve GetResult methodları ile async bir kodu senkron hale getirip propertylerine erişebiliriz.
-            var accessToken = httpContext.AuthenticateAsync().GetAwaiter().GetResult()?.Properties?.GetTokenValue("AccessToken");
+            var accessToken =  (await httpContext.AuthenticateAsync())?.Properties?.GetTokenValue("AccessToken");
 
             if (string.IsNullOrEmpty(accessToken))
             {

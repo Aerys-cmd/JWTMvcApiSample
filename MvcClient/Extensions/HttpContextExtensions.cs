@@ -11,6 +11,16 @@ namespace MvcClient.Extensions
 {
     public static class HttpContextExtensions
     {
+        /// <summary>
+        /// JWT Token ile giriş yapılabilmesi için HttpContext'e yazılan bir extensiondur. 
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <param name="authScheme">Startup'ta tanımlanan authScheme </param>
+        /// <param name="jwtToken">Decode edilmiş jwtToken</param>
+        /// <param name="accessToken">Decode edilmemiş token</param>
+        /// <param name="refreshToken">Refresh Token</param>
+        /// <param name="isPersistant">Oturumun kalıcı olup olmayacağı.</param>
+        /// <returns></returns>
         public async static Task JwtSignInAsync(this HttpContext httpContext,string authScheme,JwtSecurityToken jwtToken, string accessToken, string refreshToken, bool isPersistant = false)
         {
 
