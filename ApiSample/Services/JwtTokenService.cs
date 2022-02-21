@@ -36,7 +36,7 @@ namespace ApiSample.Services
                    issuer: _configuration["JWT:issuer"],
                    audience: _configuration["JWT:audience"],
                    claims: Claims,
-                   expires: DateTime.UtcNow.AddSeconds(TokenExpireDateHelper.GetExpireDateMinutes),
+                   expires: DateTime.UtcNow.AddSeconds(3600),
                    notBefore: DateTime.UtcNow,
                    signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:signingKey"])),
                            SecurityAlgorithms.HmacSha512)

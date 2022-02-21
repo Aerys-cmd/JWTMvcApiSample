@@ -5,13 +5,7 @@ using System.Threading.Tasks;
 
 namespace ApiSample.Dtos
 {
-    public static class TokenExpireDateHelper
-    {
-        /// <summary>
-        /// 3600 saniye değerini döndürür
-        /// </summary>
-        public static int GetExpireDateMinutes = 3600;
-    }
+    
 
     /// <summary>
     /// End User döneceğimiz response
@@ -20,7 +14,7 @@ namespace ApiSample.Dtos
     {
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
-        public int ExpireDateSeconds { get; set; } = TokenExpireDateHelper.GetExpireDateMinutes; // expire date minutes kaç saniye sonra sonra expire olacağı bilgisi
+        public int ExpireDateSeconds { get; set; } = 3600; 
         public string TokenType { get; set; } = "Bearer";
 
     }
